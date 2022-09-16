@@ -30,7 +30,7 @@ public:
 
   void play();
   bool round();
-  void checkAndPrepareNumberCode();
+  bool checkAndPrepareNumberCode();
   bool checkCodeMatches();
   void resetCountMatches();
   bool checkWin();
