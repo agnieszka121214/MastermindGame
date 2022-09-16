@@ -52,16 +52,21 @@ Game::convertNumberCodeFromSringToIntVector(std::string numberCode) {
   return checkCode;
 }
 
-void Game::checkAndPrepareNumberCode() {
+bool Game::checkAndPrepareNumberCode() {
+  bool isValidated;
   std::string codeFromUser = enterNumberCode();
   try {
     validateNumberCode(codeFromUser);
     convertNumberCodeFromSringToIntVector(codeFromUser);
+    isValidated = true;
   } catch (std::runtime_error const &e) {
     std::cout << e.what() << std::endl;
+    isValidated = false;
   } catch (std::range_error const &e) {
     std::cout << e.what() << std::endl;
+    isValidated = false;
   }
+  return isValidated;
 }
 
 void Game::play() {
@@ -77,7 +82,10 @@ void Game::play() {
 }
 
 bool Game::round() {
-  checkAndPrepareNumberCode();
+  bool checkedCode = false;
+  while (checkedCode != true) {
+    checkedCode = checkAndPrepareNumberCode();
+  }
   bool checkedCodeMatches = checkCodeMatches();
   printMatchingNumbersMap();
   return checkedCodeMatches;
